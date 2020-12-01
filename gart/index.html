@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link type="text/css" rel="stylesheet" href="https://raw.githubusercontent.com/Rumyra/rumyra.css/master/styles/rumyra.css">
+</head>
+<body><div class="wrapper">
+	<header class="header-site">
+
+	</header>
+
+	<main>
+		<article>
+			<header>
+				<h1>Gart: The Art Game.</h1>
+				<time>November 2020</time>
+			</header>
+
+			<p>I organised a date the other day. I know what you're thinking can you <em>date</em> in lockdown? Fortunately I am a live alone single, so I'm allowed a "bubble", this just happens to be the man I'm dating... lucky.</p>
+
+			<p>Now there's not a lot you can do during lockdown, so I created an activity. He likes board games, I like drawing. So I came up with an art game or Gart as I like to call it.</p>
+
+			<h2>Rules</h2>
+
+			<p>The rules are fairly simple: Pick a card and draw or paint whatever it says on the card. Repeat until you need to stop for food.</p>
+
+			<p>I didn't instigate a time limit, although having played it that could easily be an option.</p>
+
+			<h2>What you'll need:</h2>
+
+			<ul>
+				<li>The prompt cards. I've created a pdf, or you can use the interactive version below.</li>
+				<li>Paper or card.</li>
+				<li>Something to draw or paint with (I chose watercolours and felt-tips as they are relatively non-messy.)</li>
+			</ul>
+
+			<section id="card-picker">
+				<p>Click the button to pick a card. Once a card has been selected it won't be again, refresh the page to start a new game.</p>
+				<button>Pick a card</button>
+				<div></div>
+			</section>
+
+		</article>
+	</main>
+
+</div><!--/wrapper-->
+
+<script>
+
+// our cards
+const cards = [
+	{prompt: "Draw a self portrait using only straight lines"},
+	{ prompt: "Draw the objects around you as squares of colour, big for close & small for far away" },
+	{ prompt: "DOODLE!" },
+	{ prompt: "Draw the last thing you ate or drank" },
+	{ prompt: "Draw some shapes and colour outside the lines" },
+	{ prompt: "Create a pattern using shapes from your imagination" },
+	{ prompt: "If your mood today was a colour what would it be? Draw your mood" },
+	{ prompt: "Create a pattern using one shape and two colours from what you are wearing" },
+	{ prompt: "Look at the many textures around you. Can you re-create them on the paper?" },
+	{ prompt: "Create a grid and fill each shape with a colour" },
+	{ prompt: "Create a pattern using a shape you find in nature" },
+	{ prompt: "Draw a fight between your favorite colour and your least favorite colour" },
+];
+
+// grab our dom
+const cardPicker = document.querySelector('#card-picker');
+const buttonEl = cardPicker.querySelector('button');
+const cardEl = cardPicker.querySelector('div');
+
+
+
+
+</script>
+
+</body>
+</html>
