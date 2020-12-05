@@ -3,8 +3,55 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<link type="text/css" rel="stylesheet" href="https://raw.githubusercontent.com/Rumyra/rumyra.css/master/styles/rumyra.css">
+	<title>Gart | The Art Game | By Rumyra</title>
+	<link type="text/css" rel="stylesheet" href="https://rumyra.github.io/rumyra.css/rumyra.css">
+
+	<style>
+	.wrapper {
+		max-width: 940px;
+		margin: 0px auto var(--size);
+	}
+	main article {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-gap: calc(var(--size)*2);
+	}
+	header {grid-area: 1 / 1 / 3 / 2;}
+	#card-picker {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		place-items: center;
+		grid-column: span 2;
+	}
+	#card-picker div {
+		box-sizing: border-box;
+		width: 280px; height: 400px;
+		padding: calc(var(--size)*3);
+		background: transparent url('card.svg') no-repeat top left;
+		background-size: 100%;
+		grid-area: 1 / 2 / 3 / 3;
+		text-align: center;
+		line-height: 2;
+	}
+	/* TODO add this back into rumyra css */
+	button {
+		display: inline-block;
+		padding: var(--yGap) var(--xDoubleGap);
+		background: var(--white) none top left;
+		border: 4px solid var(--col1);
+
+		font-size: var(--fontSize);
+		font-family: var(--font);
+		color: var(--dark);
+
+		cursor: pointer;
+	}
+	button:hover {
+		background-color: var(--col1);;
+		color: var(--white);
+		font-weight: bold;
+	}
+	</style>
 </head>
 <body><div class="wrapper">
 	<header class="header-site">
@@ -22,24 +69,28 @@
 
 			<p>Now there's not a lot you can do during lockdown, so I created an activity. He likes board games, I like drawing. So I came up with an art game or Gart as I like to call it.</p>
 
-			<h2>Rules</h2>
+			<section>
+				<h2>Rules</h2>
 
-			<p>The rules are fairly simple: Pick a card and draw or paint whatever it says on the card. Repeat until you need to stop for food.</p>
+				<p>The rules are fairly simple: Pick a card and draw or paint whatever it says on the card. Repeat until you need to stop for food.</p>
 
-			<p>I didn't instigate a time limit, although having played it that could easily be an option.</p>
+				<p>I didn't instigate a time limit, although having played it that could easily be an option.</p>
+			</section>
 
-			<h2>What you'll need:</h2>
+			<section>
+				<h2>What you'll need:</h2>
 
-			<ul>
-				<li>The prompt cards. I've created a pdf, or you can use the interactive version below.</li>
-				<li>Paper or card.</li>
-				<li>Something to draw or paint with (I chose watercolours and felt-tips as they are relatively non-messy.)</li>
-			</ul>
+				<ul class="list">
+					<li>The prompt cards. <a href="Gart_TheArtGameCards_ByRumyra.pdf">I've created a pdf</a>, or you can use the interactive version below.</li>
+					<li>Paper or card.</li>
+					<li>Something to draw or paint with (I chose watercolours and felt-tips as they are relatively non-messy.)</li>
+				</ul>
+			</section>
 
 			<section id="card-picker">
-				<p>Click the button to pick a card. Once a card has been selected it won't be again, refresh the page to start a new game.</p>
 				<button>Pick a card</button>
-				<div></div>
+				<p>Click the button to pick a card. Once a card has been selected it won't be again, refresh the page to start a new game.</p>
+				<div><h3></h3></div>
 			</section>
 
 		</article>
@@ -68,9 +119,19 @@ const cards = [
 // grab our dom
 const cardPicker = document.querySelector('#card-picker');
 const buttonEl = cardPicker.querySelector('button');
-const cardEl = cardPicker.querySelector('div');
+const cardEl = cardPicker.querySelector('div h3');
 
+buttonEl.addEventListener('click', (e) => {
+	e.preventDefault();
 
+	let message = 'Game Over! No more cards!';
+	if (cards.length > 0) {
+		let messageIndex = Math.floor(Math.random() * cards.length)
+		message = cards[messageIndex].prompt;
+		cards.splice(messageIndex, 1);
+	}
+	cardEl.innerText = message;
+})
 
 
 </script>
