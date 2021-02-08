@@ -4,5 +4,11 @@
 		"url": "/gart/",
 		"desc": "A card game for making art",
 		"date": "2020-11"
-	}
+	},
+  {
+    "title": "What the convolver?",
+    "url": "/convolver/",
+    "desc": "Demonstrating different impulse responses for the Web Audio convolver node.",
+    "date": "2021-02"
+  }
 ]
