@@ -17,6 +17,21 @@
   <link rel="stylesheet" href="https://rumyra.github.io/rumyra.css/rumyra.css">
 
   <meta name="theme-color" content="#a681c4">
+
+  <style>
+    #work-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: auto;
+      grid-gap: var(--xDoubleGap);
+    }
+    #work-list article {}
+    #work-list .image--regular {
+      width: 100%; height: 20vw;
+    }
+    #work-list {}
+    #work-list {}
+  </style>
 </head>
 <body><div class="wrapper">
   <header class="header-site">
@@ -43,6 +58,27 @@
         <h2 class="heading--small">A place to collect work by Ruth John</h2>
       </header>
 
+      <section id="work-list">
+
+        <article>
+          <h3>What The Convolver?</h3>
+          <figure class="image--regular">
+            <img src="" alt="" />
+          </figure>
+          <p>Demonstrating different impulse responses for the Web Audio convolver node.</p>
+          <a href="/convolver">Go to the Convolver page &nrArr;</a>
+        </article>
+        
+        <article>
+          <h3>Gart: The Art Game</h3>
+          <figure class="image--regular">
+            <img src="gart/gart.jpg" alt="A screenshot of gart, the art game" />
+          </figure>
+          <p>A card game for making art.</p>
+          <a href="/gart">Go to the Gart page &nrArr;</a>
+        </article>
+      
+      </section><!-- work-list -->
     </article>
   </main>
 
