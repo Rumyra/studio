@@ -25,7 +25,10 @@
       grid-auto-rows: auto;
       grid-gap: var(--xDoubleGap);
     }
-    #work-list article {}
+    #work-list article:nth-of-type(5n-1) {--primCol: var(--orange);}
+    #work-list article:nth-of-type(5n-2) {--primCol: var(--blue);}
+    #work-list article:nth-of-type(5n-3) {--primCol: var(--green);}
+    #work-list article:nth-of-type(5n-4) {--primCol: var(--pink);}
     #work-list .image--regular {
       width: 100%; height: 20vw;
     }
@@ -55,7 +58,7 @@
     <article>
       <header>
         <h1>Rumyra's Studio</h1>
-        <h2 class="heading--small">A place to collect work by Ruth John</h2>
+        <h2 class="heading--small">A place for the things I make</h2>
       </header>
 
       <section id="work-list">
@@ -63,7 +66,7 @@
         <article>
           <h3>What The Convolver?</h3>
           <figure class="image--regular">
-            <img src="" alt="" />
+            <img src="convolver/conv.jpg" alt="A screenshot of lots of buttons to select different convolver files" />
           </figure>
           <p>Demonstrating different impulse responses for the Web Audio convolver node.</p>
           <a href="/convolver">Go to the Convolver page &nrArr;</a>
