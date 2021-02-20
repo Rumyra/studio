@@ -1,5 +1,11 @@
 import tinycolor from './tinyCol.js';
 
+import Color from "https://colorjs.io/dist/color.esm.js";
+
+// TODO add window resize
+// TODO add in x & y count
+// TODO update download on regeneration
+
 console.clear();
 
 console.log('%cHiya! 👋 Thanks for taking a look at my codes 😎 Follow me on twitter or instagram to see more of my work; I\'m @Rumyra 🐧', 'background-color: hsla(315, 3%, 25%, 1); font-size: 120%; line-height: 1.4; text-align: center; color: hsla(33, 55%, 92%, 1); border: 2px solid hsla(273, 36%, 64%, 1); padding: 0.5em;');
@@ -8,7 +14,6 @@ console.log('%cHiya! 👋 Thanks for taking a look at my codes 😎 Follow me on
 const container = document.querySelector('#gradients');
 const canvasEl = container.querySelector('canvas');
 const dpr = window.devicePixelRatio;
-// TODO add window resize
 const w = canvasEl.getBoundingClientRect().width * dpr;
 const h = canvasEl.getBoundingClientRect().height * dpr;
 
