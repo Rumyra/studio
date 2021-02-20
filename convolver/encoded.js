@@ -1,4 +1,17 @@
-// aggrigation file: All base64 encodes are pulled together here - see the base64 folder
+// originally I used base64 but changed because some of the files were very big
+// keeping this here for prosperity
+
+// using a base64 encoded file as a convolver inspired by this pen https://codepen.io/DonKarlssonSan/pen/doVKRE?editors=0010
+// function to return a buffer from the base64
+function base64ToArrayBuffer(base64) {
+  var binaryString = window.atob(base64);
+  var len = binaryString.length;
+  var bytes = new Uint8Array(len);
+  for (var i = 0; i < len; i++)        {
+      bytes[i] = binaryString.charCodeAt(i);
+  }
+  return bytes.buffer;
+}
 
 import bigHall1 from './base64/bigHall1.js';
 import bigHall2 from './base64/bigHall2.js';
