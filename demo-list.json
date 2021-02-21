@@ -1,14 +1,26 @@
 [
 	{
-		"title": "Gart: The Art Game",
-		"url": "/gart/",
-		"desc": "A card game for making art",
-		"date": "2020-11"
-	},
+    "title": "Lovely Gradients",
+    "url": "/gradient/",
+    "image": "/gradient/grad.jpg",
+    "desc": "A lovely gradient generator.",
+    "date": "2021-03",
+    "gh": "https://github.com/Rumyra/studio/tree/main/gradient"
+  },
   {
-    "title": "What the convolver?",
+    "title": "What The Convolver?",
     "url": "/convolver/",
+    "image": "/convolver/conv.jpg",
     "desc": "Demonstrating different impulse responses for the Web Audio convolver node.",
-    "date": "2021-02"
+    "date": "2021-02",
+    "gh": "https://github.com/Rumyra/studio/tree/main/convolver"
+  },
+  {
+    "title": "Gart: The Art Game",
+    "url": "/gart/",
+    "image": "/gart/gart.jpg",
+    "desc": "A card game for making art",
+    "date": "2020-11",
+    "gh": "https://github.com/Rumyra/studio/tree/main/gart"
   }
 ]
