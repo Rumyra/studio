@@ -3,16 +3,18 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Better Oscillator | By Rumyra</title>
-	<meta name="description" content="Prototyping a better oscillator node with audio worklet">
+	<title>New Audio Nodes | By Rumyra</title>
+	<meta name="description" content="Prototyping some new audio nodes with audio worklet">
 
-	<meta property="og:title" content="Better Oscillator | By Rumyra">
+	<meta property="og:title" content="New Nodes | By Rumyra">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://studio.rumyra.com/betterosc">
+  <meta property="og:url" content="https://studio.rumyra.com/newnodes">
   <meta property="og:image" content="osc.jpg">
 
   <link rel="apple-touch-icon" href="https://rumyra.github.io/rumyra.css/icon.png">
   <!-- Place favicon.ico in the root directory -->
+
+  <script src="../assets/prism.js"></script>
 
 	<link type="text/css" rel="stylesheet" href="https://rumyra.github.io/rumyra.css/rumyra.css">
 
@@ -20,6 +22,9 @@
 		.wrapper {
 			--primCol: var(--blue);
 		}
+    .select--btns {
+      margin-bottom: var(--yGap);
+    }
 	</style>
 </head>
 <body><div class="wrapper">
@@ -42,50 +47,168 @@
 	<main>
 		<article>
 			<header>
-				<h1>Better Oscillator</h1>
-				<time>March 2021</time>
+				<h1>Audio Nodes</h1>
+				<time>April 2021</time>
 			</header>
 
-			<p>I started looking into Audio Worklets to see if I can prototype a hard sync node for the web audio API - that's when I stumbled across this <a href="https://github.com/Flarp/better-oscillator/blob/master/worklet.js">better oscillator code</a></p>
+			<p>I started looking into Audio Worklets to see if I can prototype some new functionality for the Web Audio API. These include: Extensions to the oscillator node (phase offset and duty), a new noise node and a hardsync node.</p>
 
-      <p>Not only does it include hard sync, but also duty cycle of the pulse wave.</p>
+      <p>I also wanted to personally prototype an analyser node, which returns values more akin to noise/music we interpret as humans. This seemed as appropriate place as any.</p>
 
-			<p class="note">Surprisingly this webpage makes noise - fair warning.</p>
+      <p class="note">Surprisingly this webpage makes noise - fair warning.</p>
 
-			<section id="select-con">
-				<h2>Configure your sound:</h2>
+      <hr />
 
-        <!-- NEXT add inputs for params -->
-        <div class="select--btns">
-          <button data-type="0" data-selected="true">Triangle</button>
-          <button data-type="1" data-selected="false">Pulse</button>
-          <button data-type="2" data-selected="false">Sawtooth</button>
-          <button data-type="3" data-selected="false">Sine</button>
-          <button data-type="4" data-selected="false">Noise</button>
-        </div>
+      <article class="node-noise">
+        <header><h2>Noise node</h2></header>
 
-        <div>
-          <label for="freq">Frequency (10-800)</label>
-          <input type="range" min="10" max="800" step="10" value="440" name="freq" id="freq" />
-        </div>
+        <p>A node which returns a couple of different types of noise. Seed is not implemented in the code on this page, but suggested as per below.</p>
 
-        <div>
-          <label for="phase">Phase (0-800)</label>
-          <input type="range" min="0" max="800" step="10" value="0" name="phase" id="phase" />
-        </div>
+        <p>Suggested:</p>
 
-        <div>
-          <label for="sync">Hard sync (0 - 8000)</label>
-          <input type="range" min="0" max="8000" step="10" value="0" name="sync" id="sync" />
-        </div>
+        <pre class="code language-js"><code>// extending AudioScheduleSourceNode
+const opts = {
+  type: 'white', // 'white' or 'gaussian'
+  seed: 'string' // could also easily be int/float
+}
 
-        <div>
-          <label for="duty">Duty (0-1)</label>
-          <input type="range" min="0" max="1" step="0.1" value="0.5" name="duty" id="duty" />
-        </div>
+let noise = new NoiseNode(opts);
 
-        <button id="play-button" data-playing="false">Play</button>
-      </section>
+// connect node as per
+noise.connect(ctx.destination);
+
+// play
+noise.start()
+        </code></pre>
+
+        <section class="play">
+          <h3>Select noise type & play:</h3>
+
+          <div class="select--btns">
+            <button data-type="0" data-selected="true">Random</button>
+            <button data-type="1" data-selected="false">Gaussian</button>
+          </div>
+
+          <button class="play-button" data-playing="false">Play Noise</button>
+        </section>
+      </article>
+
+      <hr />
+
+<!-- Remove noise, &  hard sync from this -->
+      <article class="node-osc">
+        <header><h2>Extensions to oscillator</h2></header>
+
+        <p>Adds phase shift and duty to pulse wave. Based upon this <a href="https://github.com/Flarp/better-oscillator/blob/master/worklet.js">better oscillator code</a>.</p>
+
+        <section class="play form">
+          <h3>Configure your oscillator:</h3>
+
+          <div class="select--btns">
+            <button data-type="0" data-selected="true">Triangle</button>
+            <button data-type="1" data-selected="false">Pulse</button>
+            <button data-type="2" data-selected="false">Sawtooth</button>
+            <button data-type="3" data-selected="false">Sine</button>
+            <button data-type="4" data-selected="false">Noise</button>
+          </div>
+
+          <div class="form--group">
+            <label for="freq">Frequency (10-800)</label>
+            <input type="range" min="10" max="800" step="10" value="440" name="freq" id="freq" />
+          </div>
+
+          <div class="form--group">
+            <label for="phase">Phase (0-800)</label>
+            <input type="range" min="0" max="800" step="10" value="0" name="phase" id="phase" />
+          </div>
+
+          <div class="form--group">
+            <label for="sync">Hard sync (0 - 8000)</label>
+            <input type="range" min="0" max="8000" step="10" value="0" name="sync" id="sync" />
+          </div>
+
+          <div class="form--group">
+            <label for="duty">Duty (0-1)</label>
+            <input type="range" min="0" max="1" step="0.1" value="0.5" name="duty" id="duty" />
+          </div>
+
+          <button class="play-button" data-playing="false">Play</button>
+        </section>
+      </article>
+
+      <hr />
+
+      <!-- <article class="node-hardsync">
+        <header><h2>Hard sync</h2></header>
+
+        <p>A node which takes any number of oscillator inputs, creates it's own signal and sets the input signals to 0 when it's own signal reaches 0.</p>
+
+        <p>In this examples two oscillators are used as inputs.</p>
+
+        <section class="play">
+          <h3>Oscillator 1:</h3>
+
+          <div class="select--btns">
+            <button data-type="0" data-selected="true">Triangle</button>
+            <button data-type="1" data-selected="false">Pulse</button>
+            <button data-type="2" data-selected="false">Sawtooth</button>
+            <button data-type="3" data-selected="false">Sine</button>
+          </div>
+
+          <div>
+            <label for="freq">Frequency (10-800)</label>
+            <input type="range" min="10" max="800" step="10" value="440" name="freq" id="freq" />
+          </div>
+
+          <h3>Oscillator 2:</h3>
+
+          <div class="select--btns">
+            <button data-type="0" data-selected="true">Triangle</button>
+            <button data-type="1" data-selected="false">Pulse</button>
+            <button data-type="2" data-selected="false">Sawtooth</button>
+            <button data-type="3" data-selected="false">Sine</button>
+          </div>
+
+          <div>
+            <label for="freq">Frequency (10-800)</label>
+            <input type="range" min="10" max="800" step="10" value="440" name="freq" id="freq" />
+          </div>
+
+          <h3>Hard Sync:</h3>
+
+          <div class="select--btns">
+            <button data-type="0" data-selected="true">Triangle</button>
+            <button data-type="1" data-selected="false">Pulse</button>
+            <button data-type="2" data-selected="false">Sawtooth</button>
+            <button data-type="3" data-selected="false">Sine</button>
+          </div>
+
+          <div>
+            <label for="freq">Frequency (10-800)</label>
+            <input type="range" min="10" max="800" step="10" value="440" name="freq" id="freq" />
+          </div>
+
+          <button id="play-button" data-playing="false">Play</button>
+        </section>
+      </article>
+
+      <hr />
+
+      <article class="node-realyser">
+        <header><h2>Real Analyser</h2></header>
+
+        <p>An analyser node which distributes returned velocity of frequencies factoring in the log scale of music. (i.e instead of returning velocity values for 100, 200, 300 ... hz, returns 100, 300, 700 ... eg). In addition returns values from 0-10khz rather than 0-20khz.</p>
+
+        <p>The microphone is used as an analysed input.</p>
+
+        <button>Analyse</button>
+
+        <h3>Result</h3>
+
+        <p></p>
+
+      </article> -->
+
 
 		</article>
 	</main>
