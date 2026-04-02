@@ -1,16 +1,27 @@
 [
   {
+    "title": "New Audio Nodes",
+    "url": "/newnodes/",
+    "image": "/newnodes/osc.jpg",
+    "imageAlt": "A screenshot of the new audio nodes demo page",
+    "desc": "Prototyping some new nodes for the Web Audio API",
+    "date": "2021-04",
+    "gh": "https://github.com/Rumyra/studio/tree/main/newnodes"
+  },
+  {
     "title": "Better Oscillator",
     "url": "/betterosc/",
     "image": "/betterosc/grad.jpg",
+    "imageAlt": "A screenshot of the better oscillator demo page",
     "desc": "An extended oscillator node for web audio, using audio worklet.",
     "date": "2021-03",
     "gh": "https://github.com/Rumyra/studio/tree/main/betterosc"
   },
-	{
+  {
     "title": "Lovely Gradients",
     "url": "/gradient/",
     "image": "/gradient/grad.jpg",
+    "imageAlt": "An image of multicoloured rectangles arranged in a gradient",
     "desc": "A lovely gradient generator.",
     "date": "2021-03",
     "gh": "https://github.com/Rumyra/studio/tree/main/gradient"
@@ -19,6 +30,7 @@
     "title": "What The Convolver?",
     "url": "/convolver/",
     "image": "/convolver/conv.jpg",
+    "imageAlt": "A screenshot of lots of buttons to select different convolver files",
     "desc": "Demonstrating different impulse responses for the Web Audio convolver node.",
     "date": "2021-02",
     "gh": "https://github.com/Rumyra/studio/tree/main/convolver"
@@ -27,6 +39,7 @@
     "title": "Gart: The Art Game",
     "url": "/gart/",
     "image": "/gart/gart.jpg",
+    "imageAlt": "A screenshot of Gart, the art game",
     "desc": "A card game for making art",
     "date": "2020-11",
     "gh": "https://github.com/Rumyra/studio/tree/main/gart"
