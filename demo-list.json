@@ -9,15 +9,6 @@
     "gh": "https://github.com/Rumyra/studio/tree/main/newnodes"
   },
   {
-    "title": "Better Oscillator",
-    "url": "/betterosc/",
-    "image": "/betterosc/grad.jpg",
-    "imageAlt": "A screenshot of the better oscillator demo page",
-    "desc": "An extended oscillator node for web audio, using audio worklet.",
-    "date": "2021-03",
-    "gh": "https://github.com/Rumyra/studio/tree/main/betterosc"
-  },
-  {
     "title": "Lovely Gradients",
     "url": "/gradient/",
     "image": "/gradient/grad.jpg",
