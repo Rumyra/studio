@@ -15,8 +15,7 @@
             property="og:url"
             content="https://studio.rumyra.com/numbersgame"
         />
-        <!-- TODO: add an og:image (screenshot of the demo) -->
-        <meta property="og:image" content="og.jpg" />
+        <meta property="og:image" content="num.jpg" />
 
         <link
             rel="apple-touch-icon"
@@ -51,13 +50,18 @@
                 opacity: 0.35;
                 cursor: not-allowed;
             }
+            .pick-btn:hover,
+            .reveal-btn:hover {
+                background: transparent;
+                color: var(--light);
+            }
             /* ── Sections ─────────────────────────────────────────────── */
             .selection,
             .target {
                 background: var(--dark);
                 border: var(--borderWidth) solid var(--primCol);
                 border-radius: var(--borderRadius);
-                padding: var(--yHalfGap) var(--xGap);
+                padding: var(--yGap) var(--xGap);
                 margin-bottom: var(--yGap);
                 box-shadow: var(--boxShadow);
             }
@@ -76,9 +80,9 @@
             .pick-btn {
                 flex: 1;
             }
-            .pick-btn:hover:not(:disabled) {
+            /*.pick-btn:hover:not(:disabled) {
                 background: transparent;
-            }
+            }*/
             .large-btn {
                 background: var(--pink);
                 border-color: var(--pink);
@@ -156,65 +160,22 @@
                 color: var(--lightest);
             }
 
+            /* ── Target area ──────────────────────────────────────────── */
             .target {
-                display: flex;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
                 gap: var(--xGap);
                 align-items: center;
-                flex-wrap: wrap;
             }
-            /* ── Buttons ──────────────────────────────────────────────── */
-            /*.pick-btn,
-            .reveal-btn,
-            .reset-btn {
-                display: inline-block;
-                font-family: inherit;
-                font-weight: 700;
-                font-size: var(--fontSize);
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                border-radius: var(--borderRadius);
-                cursor: pointer;
-                transition:
-                    background 0.15s,
-                    color 0.15s,
-                    transform 0.1s;
-                padding: var(--yGap) var(--xDoubleGap);
-            }*/
-
-            .reveal-btn {
-                background: var(--yellow);
-                border: var(--borderWidth) solid var(--yellow);
-                color: var(--darkest);
-            }
-
-            .reveal-btn:hover:not(:disabled) {
-                background: transparent;
-                color: var(--yellow);
-            }
-
-            .reset-btn {
-                background: transparent;
-                border: var(--borderWidth) solid var(--dark);
-                color: var(--dark);
-            }
-
-            .reset-btn:hover {
-                background: var(--dark);
-                color: var(--light);
-            }
-
-            /* ── Target area ──────────────────────────────────────────── */
             .target-area {
-                flex: 1;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 gap: var(--yGap);
-                min-width: 200px;
             }
 
             .target-display {
-                width: 180px;
+                width: 288px;
                 height: 100px;
                 background: var(--darkest);
                 border-radius: var(--borderRadius);
@@ -223,20 +184,17 @@
                 justify-content: center;
                 border: var(--borderWidth) solid var(--yellow);
             }
-
             #targetNumber {
-                font-size: 3.2rem;
+                font-size: var(--largeHeaderSize);
                 font-weight: 700;
                 color: var(--yellow);
                 letter-spacing: 2px;
                 transition: all 0.3s;
             }
-
             #targetNumber.revealed {
                 animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)
                     forwards;
             }
-
             @keyframes popIn {
                 0% {
                     transform: scale(0.5);
@@ -247,7 +205,15 @@
                     opacity: 1;
                 }
             }
-
+            .reveal-btn {
+                background: var(--yellow);
+                border-color: var(--yellow);
+                color: var(--darkest);
+            }
+            .reveal-btn:hover:not(:disabled) {
+                background: transparent;
+                color: var(--yellow);
+            }
             /* ── Timer ────────────────────────────────────────────────── */
             .timer-column {
                 display: flex;
@@ -255,31 +221,26 @@
                 align-items: center;
                 gap: var(--yGap);
             }
-
             .timer-area {
                 display: flex;
                 justify-content: center;
                 align-items: center;
             }
-
             .timer-ring {
                 position: relative;
-                width: 140px;
-                height: 140px;
+                width: 160px;
+                height: 160px;
             }
-
             .timer-ring svg {
                 width: 100%;
                 height: 100%;
                 transform: rotate(-90deg);
             }
-
             .timer-track {
                 fill: none;
                 stroke: var(--darkest);
                 stroke-width: 8;
             }
-
             .timer-progress {
                 fill: none;
                 stroke: var(--secCol);
@@ -291,42 +252,32 @@
                     stroke-dashoffset 1s linear,
                     stroke 0.5s;
             }
-
             .timer-progress.urgent {
                 stroke: var(--orange);
             }
-
             .timer-number {
                 position: absolute;
                 inset: 0;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 2.4rem;
+                font-size: var(--largeHeaderSize);
                 font-weight: 700;
                 color: var(--secCol);
             }
-
             .timer-number.urgent {
                 color: var(--orange);
             }
-
-            /* ── Reset area ───────────────────────────────────────────── */
-            .reset-area {
-                text-align: center;
-            }
-
             /* ── Time-up banner ───────────────────────────────────────── */
             .time-up-banner {
                 text-align: center;
                 font-size: var(--mediumHeaderSize);
                 font-weight: 700;
                 color: var(--orange);
-                letter-spacing: 3px;
+                letter-spacing: 1px;
                 text-transform: uppercase;
                 animation: fadeIn 0.5s ease;
             }
-
             @keyframes fadeIn {
                 from {
                     opacity: 0;
@@ -336,6 +287,19 @@
                     opacity: 1;
                     transform: translateY(0);
                 }
+            }
+            /* ── Reset area ───────────────────────────────────────────── */
+            .reset-area {
+                text-align: center;
+            }
+            .reset-btn {
+                background: transparent;
+                border-color: var(--dark);
+                color: var(--dark);
+            }
+            .reset-btn:hover {
+                background: var(--dark);
+                color: var(--light);
             }
         </style>
     </head>
