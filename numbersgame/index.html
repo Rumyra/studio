@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>The Numbers Game | By Rumyra</title>
+        <meta
+            name="description"
+            content="I vibe coded the numbers game from countdown"
+        />
+
+        <meta property="og:title" content="Numbers Game | By Rumyra" />
+        <meta property="og:type" content="website" />
+        <meta
+            property="og:url"
+            content="https://studio.rumyra.com/numbersgame"
+        />
+        <meta property="og:image" content="num.jpg" />
+
+        <link
+            rel="apple-touch-icon"
+            href="https://rumyra.github.io/rumyra.css/icon.png"
+        />
+
+        <link
+            type="text/css"
+            rel="stylesheet"
+            href="https://rumyra.github.io/rumyra.css/rumyra.css"
+        />
+        <script src="../assets/components.js"></script>
+
+        <style>
+            .game {
+            }
+            /*buttons general*/
+            button {
+                letter-spacing: 1px;
+            }
+            .pick-btn:hover:not(:disabled),
+            .reveal-btn:hover:not(:disabled) {
+                transform: translateY(-2px);
+            }
+
+            .pick-btn:active:not(:disabled),
+            .reveal-btn:active:not(:disabled) {
+                transform: translateY(0);
+            }
+            .pick-btn:disabled,
+            .reveal-btn:disabled {
+                opacity: 0.35;
+                cursor: not-allowed;
+            }
+            .pick-btn:hover,
+            .reveal-btn:hover {
+                background: transparent;
+                color: var(--light);
+            }
+            /* ── Sections ─────────────────────────────────────────────── */
+            .selection,
+            .target {
+                background: var(--dark);
+                border: var(--borderWidth) solid var(--primCol);
+                border-radius: var(--borderRadius);
+                padding: var(--yGap) var(--xGap);
+                margin-bottom: var(--yGap);
+                box-shadow: var(--boxShadow);
+            }
+            .selection h2,
+            .selection p {
+                color: var(--light);
+            }
+            /* ── Button row ───────────────────────────────────────────── */
+            .button-row {
+                display: flex;
+                gap: var(--xGap);
+                margin-bottom: var(--yGap);
+                flex-wrap: wrap;
+            }
+            /*number buttons*/
+            .pick-btn {
+                flex: 1;
+            }
+            /*.pick-btn:hover:not(:disabled) {
+                background: transparent;
+            }*/
+            .large-btn {
+                background: var(--pink);
+                border-color: var(--pink);
+            }
+            .large-btn:hover:not(:disabled) {
+                color: var(--pink);
+            }
+            .small-btn {
+                background: var(--blue);
+                border-color: var(--blue);
+            }
+            .small-btn:hover:not(:disabled) {
+                color: var(--blue);
+            }
+            .remaining {
+                font-size: var(--smallFontSize);
+                margin-left: var(--xHalfGap);
+            }
+            /* ── Card slots ───────────────────────────────────────────── */
+            .card-slots {
+                display: flex;
+                gap: var(--xGap);
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .card-slot {
+                width: 90px;
+                height: 120px;
+                border: 3px solid transparent;
+                border-radius: var(--borderRadius);
+                perspective: 600px;
+            }
+            .card-slot.empty {
+                border: 3px dashed var(--primCol);
+                opacity: 0.7;
+                background: transparent;
+            }
+            /* ── Flip card ────────────────────────────────────────────── */
+            .flip-card {
+                width: 100%;
+                height: 100%;
+                position: relative;
+                transform-style: preserve-3d;
+                animation: flipIn 0.55s ease forwards;
+            }
+            @keyframes flipIn {
+                0% {
+                    transform: rotateY(180deg);
+                }
+                100% {
+                    transform: rotateY(0deg);
+                }
+            }
+            .card-face {
+                position: absolute;
+                inset: 0;
+                border-radius: var(--borderRadius);
+                backface-visibility: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: var(--largeFontSize);
+                font-weight: 700;
+            }
+            .card-back {
+                background: var(--primCol);
+                transform: rotateY(180deg);
+            }
+            .card-front.large {
+                background: var(--pink);
+                color: var(--lightest);
+            }
+            .card-front.small {
+                background: var(--blue);
+                color: var(--lightest);
+            }
+
+            /* ── Target area ──────────────────────────────────────────── */
+            .target {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: var(--xGap);
+                align-items: center;
+            }
+            .target-area {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: var(--yGap);
+            }
+
+            .target-display {
+                width: 288px;
+                height: 100px;
+                background: var(--darkest);
+                border-radius: var(--borderRadius);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: var(--borderWidth) solid var(--yellow);
+            }
+            #targetNumber {
+                font-size: var(--largeHeaderSize);
+                font-weight: 700;
+                color: var(--yellow);
+                letter-spacing: 2px;
+                transition: all 0.3s;
+            }
+            #targetNumber.revealed {
+                animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+                    forwards;
+            }
+            @keyframes popIn {
+                0% {
+                    transform: scale(0.5);
+                    opacity: 0;
+                }
+                100% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+            .reveal-btn {
+                background: var(--yellow);
+                border-color: var(--yellow);
+                color: var(--darkest);
+            }
+            .reveal-btn:hover:not(:disabled) {
+                background: transparent;
+                color: var(--yellow);
+            }
+            /* ── Timer ────────────────────────────────────────────────── */
+            .timer-column {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: var(--yGap);
+            }
+            .timer-area {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .timer-ring {
+                position: relative;
+                width: 160px;
+                height: 160px;
+            }
+            .timer-ring svg {
+                width: 100%;
+                height: 100%;
+                transform: rotate(-90deg);
+            }
+            .timer-track {
+                fill: none;
+                stroke: var(--darkest);
+                stroke-width: 8;
+            }
+            .timer-progress {
+                fill: none;
+                stroke: var(--secCol);
+                stroke-width: 8;
+                stroke-linecap: round;
+                stroke-dasharray: 339.29;
+                stroke-dashoffset: 0;
+                transition:
+                    stroke-dashoffset 1s linear,
+                    stroke 0.5s;
+            }
+            .timer-progress.urgent {
+                stroke: var(--orange);
+            }
+            .timer-number {
+                position: absolute;
+                inset: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: var(--largeHeaderSize);
+                font-weight: 700;
+                color: var(--secCol);
+            }
+            .timer-number.urgent {
+                color: var(--orange);
+            }
+            /* ── Time-up banner ───────────────────────────────────────── */
+            .time-up-banner {
+                text-align: center;
+                font-size: var(--mediumHeaderSize);
+                font-weight: 700;
+                color: var(--orange);
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                animation: fadeIn 0.5s ease;
+            }
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(6px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            /* ── Reset area ───────────────────────────────────────────── */
+            .reset-area {
+                text-align: center;
+            }
+            .reset-btn {
+                background: transparent;
+                border-color: var(--dark);
+                color: var(--dark);
+            }
+            .reset-btn:hover {
+                background: var(--dark);
+                color: var(--light);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <site-header back></site-header>
+
+            <main>
+                <article>
+                    <header>
+                        <h1>The numbers game</h1>
+                        <time>April 2026</time>
+                    </header>
+
+                    <!-- TODO: add intro paragraphs describing the demo -->
+                    <p>
+                        I got a full time job in May 2021, which coincided
+                        perfectly with when I stopped creating demos :( However,
+                        I started playing around with Claude Code recently and
+                        it seemed like a good opportunity to vibe code the
+                        numbers game from the gameshow Countdown. (I still have
+                        my job).
+                    </p>
+
+                    <hr />
+
+                    <div class="game">
+                        <!-- Step 1: Choose numbers -->
+                        <section class="selection">
+                            <h2>Choose Your Six Numbers</h2>
+                            <p class="instructions">
+                                Select up to 4 large numbers and fill the rest
+                                with small numbers (6 total).
+                            </p>
+
+                            <div class="button-row">
+                                <button
+                                    class="pick-btn large-btn"
+                                    id="pickLarge"
+                                    onclick="pickNumber('large')"
+                                >
+                                    Pick Large
+                                    <span class="remaining" id="largeRemaining"
+                                        >(4 left)</span
+                                    >
+                                </button>
+                                <button
+                                    class="pick-btn small-btn"
+                                    id="pickSmall"
+                                    onclick="pickNumber('small')"
+                                >
+                                    Pick Small
+                                    <span class="remaining" id="smallRemaining"
+                                        >(6 left)</span
+                                    >
+                                </button>
+                            </div>
+
+                            <!-- Card slots -->
+                            <div class="card-slots" id="cardSlots">
+                                <div class="card-slot empty" id="slot-0"></div>
+                                <div class="card-slot empty" id="slot-1"></div>
+                                <div class="card-slot empty" id="slot-2"></div>
+                                <div class="card-slot empty" id="slot-3"></div>
+                                <div class="card-slot empty" id="slot-4"></div>
+                                <div class="card-slot empty" id="slot-5"></div>
+                            </div>
+                        </section>
+
+                        <!-- Step 2: Target number and timer -->
+                        <section class="target" id="targetSection">
+                            <div class="target-area">
+                                <div class="target-display" id="targetDisplay">
+                                    <span id="targetNumber">—</span>
+                                </div>
+                                <button
+                                    class="reveal-btn"
+                                    id="revealBtn"
+                                    onclick="startGame()"
+                                    disabled
+                                >
+                                    Generate Target &amp; Start!
+                                </button>
+                            </div>
+
+                            <div class="timer-column">
+                                <div class="timer-area">
+                                    <div class="timer-ring">
+                                        <svg viewBox="0 0 120 120">
+                                            <circle
+                                                class="timer-track"
+                                                cx="60"
+                                                cy="60"
+                                                r="54"
+                                            />
+                                            <circle
+                                                class="timer-progress"
+                                                id="timerProgress"
+                                                cx="60"
+                                                cy="60"
+                                                r="54"
+                                            />
+                                        </svg>
+                                        <div
+                                            class="timer-number"
+                                            id="timerDisplay"
+                                        >
+                                            60
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Reset -->
+                        <div class="reset-area">
+                            <button class="reset-btn" onclick="resetGame()">
+                                Reset Game
+                            </button>
+                        </div>
+                    </div>
+                    <!--game -->
+                </article>
+            </main>
+
+            <!-- TODO: update gh with the correct GitHub URL for this demo -->
+            <site-footer
+                gh="https://github.com/Rumyra/studio/tree/main/demo-folder-name"
+            ></site-footer>
+        </div>
+        <!--/wrapper-->
+
+        <script src="script.js"></script>
+    </body>
+</html>
